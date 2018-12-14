@@ -78,37 +78,15 @@ for entry in entries:
         woke_up_minute = entry.timestamp.minute
         guards[current_guard].update_minutes(fell_asleep_minute, woke_up_minute)
 
-max_time = 0
-guard_max = 0
+most_times_asleep = 0
+min_index = 0
+sleepy_guard = 0
 for guard in guards.values():
-    if guard.sleepy_time > max_time:
-        max_time = guard.sleepy_time
-        guard_max = guard
+    for x in range(0, 60):
+        if guard.minutes[x] > most_times_asleep:
+            most_times_asleep = guard.minutes[x]
+            min_index = x
+            sleepy_guard = guard
 
-print("Max: {}".format(guard_max))
-max_min = 0
-min_index = None
-for x in range(0,60):
-    if guard_max.minutes[x] > max_min:
-        max_min = guard_max.minutes[x]
-        min_index = x
-
-print("Value: {}".format(guard_max.guard_id * min_index))
-
-
-i = 1
-### Used to make sorted entries
-# f = open('../data/p4.data', 'r')
-# data = f.readlines()
-# f.close()
-#
-# entries = []
-# for line in data:
-#     entries.append(Entry(line))
-#
-# entries.sort(key=operator.attrgetter('timestamp'))
-# with open('../data/p4_sorted.data', 'w') as f:
-#     for entry in entries:
-#         f.write(entry.line)
-
-
+print("Max: {}".format(sleepy_guard))
+print("Value: {}".format(sleepy_guard.guard_id * min_index))
