@@ -62,8 +62,8 @@ for x in range(1000):
 
 
 print(overlapping)
-# with open('../data/p3_p2.pkl', 'wb') as f:
-#     pickle.dump(overlap_matrix, f)
+with open('../data/p3_p2.pkl', 'wb') as f:
+    pickle.dump(overlap_matrix, f)
 # claim = Claim("#123 @ 3,2: 5x4")
 # for row in claim.matrix:
 #     print(row)
