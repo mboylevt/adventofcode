@@ -2,7 +2,7 @@ from copy import deepcopy
 
 
 input = open('../data/p10_data.txt', 'r')
-# input = open('../data/p10_test_data.txt', 'r')
+# input = open('../data/p10_test_data1.txt', 'r')
 
 adaptors = input.read().splitlines()
 adaptors =sorted([int(x) for x in adaptors])
