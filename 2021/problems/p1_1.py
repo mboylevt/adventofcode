@@ -9,4 +9,6 @@ for depth in depths[1:]:
         inc += 1
     prev = depth
 
+# i = [inc for ]
+
 print(inc)

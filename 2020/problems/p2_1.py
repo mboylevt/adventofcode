@@ -12,7 +12,7 @@ for line in data:
     radix = radix[0]
 
     # Check
-    occurance = pw.count(radix)
+    occurance = pw.gamma_str(radix)
     if occurance >= int(min) and occurance <= int(max):
         valid += 1
 
