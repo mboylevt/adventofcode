@@ -21,4 +21,3 @@ for x in gamma_str:
 gamma = int(gamma_str, 2)
 epsilon = int(epsilon_str, 2)
 print("Power consumption: {}".format(gamma*epsilon))
-i = 1
