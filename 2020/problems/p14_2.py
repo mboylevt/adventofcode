@@ -10,6 +10,12 @@ def mask_it(original, mask):
             new += original[index]
     return new
 
+def generate_addresses(original_address, mask:):
+    addresses = []
+
+    return addresses
+
+
 input = open('../data/p14_data.txt', 'r')
 # input = open('../data/p14_test_data.txt', 'r')
 data = input.readlines()
@@ -23,11 +29,10 @@ for line in data:
     if instruction == 'mask':
         mask = argument
     else:
-        address = int(memory_regex.search(instruction).group(1))
-        argument = bin(int(argument))[2:]
-        argument = ('0' * (36 - len(argument))) + argument
-        final_argument = mask_it(argument, mask)
-        memory[address] = int(final_argument, 2)
+        address = bin(int(memory_regex.search(instruction).group(1)))[2:]
+        address = ('0' * (36 - len(address))) + address
+        addresses = generate_addresses(address, mask)
+        # memory[address] = int(final_argument, 2)
 
 sum = 0
 for key in memory.keys():
