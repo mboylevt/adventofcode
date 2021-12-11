@@ -10,7 +10,7 @@ def mask_it(original, mask):
             new += original[index]
     return new
 
-def generate_addresses(original_address, mask:):
+def generate_addresses(original_address, mask):
     addresses = []
 
     return addresses
