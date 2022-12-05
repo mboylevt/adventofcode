@@ -1,4 +1,4 @@
-# input = open('../data/p4_test_data.txt', 'r')
+# input = open('../data/p5_test_data.txt', 'r')
 input = open('../data/p4_data.txt', 'r')
 #
 
