@@ -1,7 +1,9 @@
 from collections import deque
-# input = open('../data/p10_data.txt', 'r')
+input = open('../data/p11_data.txt', 'r')
+# input = open('../data/p11_test_data2.txt', 'r')
+# input = open('../data/p11_test_data.txt', 'r')
+
 import copy
-input = open('../data/p11_test_data.txt', 'r')
 lines = input.read().split('\n')
 s_octipi = [[int(x) for x in line] for line in lines]
 FLASH_VAL = 9
@@ -56,8 +58,43 @@ def flash(arr):
 octipi = copy.deepcopy(s_octipi)
 # octipi = energy_plusplus(arr=octipi)
 
-for row, r_val in enumerate(octipi):
-    for col, c_val in enumerate(octipi):
-        adj = get_adjacencies(octipi, row, col)
-        submatrix = [octipi[r][c] for (r,c) in adj]
-        print(submatrix)
+# Part 1
+flash_count = 0
+for cycle in range(0,100):
+    energy_plusplus(octipi)
+    resolved = False
+    while not resolved: # Resolved is true once a full matrix scan has been done w/ no 10's found
+        resolved = True # we've not found any 10's
+        for row, r_val in enumerate(octipi):
+            for col, c_val in enumerate(octipi):
+                if octipi[row][col] > 9:
+                    resolved = False # we found one
+                    flash_count += 1
+                    octipi[row][col] = 0
+                    adj = get_adjacencies(octipi, row, col) # Get all adjacent row/col values to be inc'd
+                    for a in adj:
+                        if octipi[a[0]][a[1]] != 0:
+                            octipi[a[0]][a[1]] += 1
+print("Total Flashes: {}".format(flash_count))
+
+# Part 2
+while True:
+    this_flashcount = 0
+    energy_plusplus(octipi)
+    resolved = False
+    while not resolved: # Resolved is true once a full matrix scan has been done w/ no 10's found
+        resolved = True # we've not found any 10's
+        for row, r_val in enumerate(octipi):
+            for col, c_val in enumerate(octipi):
+                if octipi[row][col] > 9:
+                    resolved = False # we found one
+                    flash_count += 1
+                    this_flashcount += 1
+                    octipi[row][col] = 0
+                    adj = get_adjacencies(octipi, row, col) # Get all adjacent row/col values to be inc'd
+                    for a in adj:
+                        if octipi[a[0]][a[1]] != 0:
+                            octipi[a[0]][a[1]] += 1
+        if this_flashcount >= 100:
+            print("Synchronized: {}".format(cycle+1))
+            exit(1)
