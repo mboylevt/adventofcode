@@ -1,13 +1,6 @@
 input = open('../data/p6_data.txt', 'r')
 # input = open('../data/p6_test_data.txt', 'r')
 lines = input.read().splitlines()
-import copy
-
-
-def convert(str):
-    l = []
-    return l[:0]
-
 
 
 for line in lines:
