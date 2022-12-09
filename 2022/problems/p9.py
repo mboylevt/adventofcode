@@ -42,4 +42,5 @@ for move in moves:
             knots[i+1].follow(knots[i])
         q -= 1
 
+print(len(knots[1].pos))
 print(len(knots[9].pos))
