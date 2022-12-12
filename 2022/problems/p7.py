@@ -19,7 +19,6 @@ sizes = []
 
 
 def get_total_sizes(file):
-
     if isinstance(file, int):
         return file
     total = sum(get_total_sizes(d) for d in file.values())
