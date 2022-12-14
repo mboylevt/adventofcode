@@ -19,8 +19,6 @@ class Monkey():
         self.false_monkey = int(re.findall(r'\d+', test_f)[0])
         self.inspection_count = 0
 
-
-
     def __repr__(self):
         return "Simian {}: Items {}, operation {}, test {}, T {}, F {}".format(
             self.monkey_id,
@@ -30,7 +28,6 @@ class Monkey():
             self.true_monkey,
             self.false_monkey
         )
-
 
     def operate(self, starting_value):
         scalar = None
@@ -42,7 +39,6 @@ class Monkey():
             case '*': return starting_value * scalar
             case '+': return starting_value + scalar
         raise Exception("Couldn't match operator")
-
 
     def test(self, item):
         return True if item % self.test_div == 0 else False
@@ -62,7 +58,6 @@ class Monkey():
             else:
                 monkeys[self.false_monkey].items.append(output)
 
-
 def lcm(lst):
     lcm = 1
     for i in lst:
@@ -70,7 +65,6 @@ def lcm(lst):
     return lcm
 
 def monkey_business(input_monkeys, worry_reduction, rounds):
-
     monkeys = [Monkey(monkey_input) for monkey_input in input_monkeys]
     monkeys = {monkey.monkey_id: monkey for monkey in monkeys}
 
@@ -84,11 +78,13 @@ def monkey_business(input_monkeys, worry_reduction, rounds):
             monkeys[monkey_id].take_turn(monkeys, LCM, worry_reduction)
 
     inspections = sorted([monkey.inspection_count for monkey in monkeys.values()], reverse=True)
-    return inspections
+    return inspections[0] * inspections[1]
 
 input_monkeys = [line for line in input.read().split('\n\n')]
 input_monkeys_p2 = input_monkeys.copy()
-inspections = monkey_business(input_monkeys, True, 20)
-print("Part 1: {}".format(inspections[0] * inspections[1]))
-inspections = monkey_business(input_monkeys_p2, False, 10000)
-print("Part 2: {}".format(inspections[0] * inspections[1]))
+# inspections = monkey_business(input_monkeys, True, 20)
+# print("Part 1: {}".format(inspections[0] * inspections[1]))
+# inspections = monkey_business(input_monkeys_p2, False, 10000)
+# print("Part 2: {}".format(inspections[0] * inspections[1]))
+print("Part 1: {}".format(monkey_business(input_monkeys, True, 20)))
+print("Part 2: {}".format(monkey_business(input_monkeys_p2, False, 10000)))
