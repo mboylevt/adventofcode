@@ -75,6 +75,8 @@ def get_dimensions(rocks):
 
 
 rocks = [line for line in open(ifile, 'r').read().split('\n')]
+import time
+start_time = time.time()
 [max_x, max_y] = get_dimensions(rocks)
 
 cave = [['.'] * (max_x *2) for i in range(0, max_y+1)]
@@ -97,3 +99,5 @@ cave.append(['#'] * (max_x *2))
 #     print('{} {}'.format(rnum, ''.join(row)))
 print("Part 2: {}".format(drop_sand(cave, max_y+2, part2=True)))
 i = 1
+end_time = time.time()
+print("Execution: {}sec".format(end_time - start_time))
