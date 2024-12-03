@@ -1,3 +1,5 @@
+import os
+
 def change_freq(freq, line):
     sign = line[:1]
     ordinal = line[1:]
@@ -7,7 +9,8 @@ def change_freq(freq, line):
         freq -= int(ordinal)
     return freq
 
-f = open('../data/p1.data', 'r')
+print(os.getcwd())
+f = open('data/p1.data', 'r')
 
 freq = 0
 for line in f.readlines():

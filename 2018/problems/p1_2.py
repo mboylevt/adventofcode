@@ -9,7 +9,7 @@ def change_freq(freq, line):
 
 
 
-f = open('../data/p1.data', 'r')
+f = open('data/p1.data', 'r')
 data = f.readlines()
 f.close()
 
