@@ -63,6 +63,7 @@ compressed_blocks = fsblocks.copy()
 reversed_blocks = compressed_blocks.copy()
 reversed_blocks.reverse()
 
+outfile = open('out.txt', 'w')
 # For all the blocks in reverse order
 for moveBlock in reversed_blocks:
     if moveBlock.content == '.':
@@ -104,6 +105,11 @@ for moveBlock in reversed_blocks:
                     i = i - 1
                 i += 1
             break
+        fsmap = ''
+        for block in compressed_blocks:
+            fsmap += str(block.content * block.length)
+        outfile.write(fsmap)
+
 
 fsmap = ''
 for block in compressed_blocks:
