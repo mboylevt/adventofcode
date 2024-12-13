@@ -1,7 +1,7 @@
 import sys
 sys.setrecursionlimit(10**6)
 
-f = open('input/12.txt', 'r')
+f = open('input/12test.txt', 'r')
 garden = [list(x) for x in f.read().splitlines()]
 plot_map = dict()
 for r_idx, row in enumerate(garden):
@@ -9,6 +9,7 @@ for r_idx, row in enumerate(garden):
         plot_map[(r_idx, c_idx)] = col
 
 total = 0
+total_bulk_discount = 0
 directions = [[0, +1], [0, -1], [+1, 0], [-1, 0]]
 
 # Iterate over all points, removing points as we recognize them as parts of a plot
@@ -28,7 +29,7 @@ while len(plot_map) > 0:
                 locations.append(neighbor_coordinates)
         i += 1
 
-    # Define area and maximum permieter
+    # Define area and maximum perimeter
     area = len(locations)
     perimeter = 4 * len(locations)
 
@@ -40,10 +41,34 @@ while len(plot_map) > 0:
             if neighbor == plot_map[locations[0]]:
                 perimeter -= 1
 
-    total += (area * perimeter)
+    # Calcualte the numer of sides for this location.  This is for Part 2
+    # Note - this could be folded into the loop above, I'm just keeping them separate for now for readability
+    corner_count = 0
+    for location in locations:
+        # Check this location for corners
+        current_location = plot_map.get((location[0], location[1]))
+        north = plot_map.get((location[0] - 1, location[1]))
+        south = plot_map.get((location[0] + 1, location[1]))
+        east = plot_map.get((location[0], location[1] + 1))
+        west = plot_map.get((location[0], location[1] - 1))
+        # NW
+        if current_location != north and current_location != west:
+            corner_count += 1
+        # NE
+        if current_location != north and current_location != east:
+            corner_count += 1
+        # SW
+        if current_location != south and current_location != west:
+            corner_count += 1
+        # SW
+        if current_location != south and current_location != east:
+            corner_count += 1
 
+    total += (area * perimeter)
+    total_bulk_discount += (area * corner_count)
     # Remove all locations for this plot from the original plot map
     for location in locations:
         del(plot_map[location])
 
 print(f'Part 1: {total}')
+print(f'Part 1: {total_bulk_discount}')
