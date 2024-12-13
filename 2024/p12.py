@@ -1,7 +1,7 @@
 import sys
 sys.setrecursionlimit(10**6)
 
-f = open('input/12test.txt', 'r')
+f = open('input/12.txt', 'r')
 garden = [list(x) for x in f.read().splitlines()]
 plot_map = dict()
 for r_idx, row in enumerate(garden):
@@ -51,6 +51,11 @@ while len(plot_map) > 0:
         south = plot_map.get((location[0] + 1, location[1]))
         east = plot_map.get((location[0], location[1] + 1))
         west = plot_map.get((location[0], location[1] - 1))
+        northwest = plot_map.get((location[0] - 1, location[1] - 1))
+        northeast = plot_map.get((location[0] - 1, location[1] + 1))
+        southwest = plot_map.get((location[0] + 1, location[1] - 1))
+        southeast = plot_map.get((location[0] + 1, location[1] + 1))
+        # Calcualte outside corners
         # NW
         if current_location != north and current_location != west:
             corner_count += 1
@@ -64,11 +69,26 @@ while len(plot_map) > 0:
         if current_location != south and current_location != east:
             corner_count += 1
 
+        # Calculate inside corners
+        # NW
+        if current_location == north and current_location == west and current_location != northwest:
+            corner_count += 1
+        # NE
+        if current_location == north and current_location == east and current_location != northeast:
+            corner_count += 1
+        # SW
+        if current_location == south and current_location == west and current_location != southwest:
+            corner_count += 1
+        # SE
+        if current_location == south and current_location == east and current_location != southeast:
+            corner_count += 1
+
     total += (area * perimeter)
-    total_bulk_discount += (area * corner_count)
+    bulk_discount = (area * corner_count)
+    total_bulk_discount += bulk_discount
     # Remove all locations for this plot from the original plot map
     for location in locations:
         del(plot_map[location])
 
 print(f'Part 1: {total}')
-print(f'Part 1: {total_bulk_discount}')
+print(f'Part 2: {total_bulk_discount}')
