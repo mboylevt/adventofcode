@@ -16,7 +16,9 @@ def parse_input(ifile) -> (list, str):
         elif line == '':
             continue
         else:
-            directions = line
+            if line == '\n':
+                continue
+            directions += line.strip()
     return grid, directions
 
 def find_robot(grid) -> (int, int):
@@ -29,6 +31,8 @@ def find_robot(grid) -> (int, int):
 def process_commands(grid, commands):
 
     for command in commands:
+
+        # print(f'Command {command}')
         r_row, r_col = find_robot(grid)
         dir = (0,0)
         match command:
@@ -45,6 +49,9 @@ def process_commands(grid, commands):
 
         # We've hit a wall - can't move
         if n_pos == '#':
+            # Print Grid to debug
+            # for row in grid:
+            #     print(*row)
             continue
         # Space is free - move
         elif n_pos == '.':
@@ -60,6 +67,9 @@ def process_commands(grid, commands):
 
             # if we've hit a wall, we can't do anything - move on
             if n_pos == '#':
+                # Print Grid to debug
+                # for row in grid:
+                #     print(*row)
                 continue
             else:
                 # There's a line of boxes at least 1 box long.  Move the rear box to the front
@@ -67,9 +77,20 @@ def process_commands(grid, commands):
                 grid[r_row][r_col] = '.'
                 grid[r_row + dir[0]][r_col + dir[1]] = '@'
                 grid[r_row + (dir[0] * move_count)][r_col + (dir[1] * move_count)] = 'O'
+        # # Print Grid to debug
+        # for row in grid:
+        #     print(*row)
 
-grid, commands = parse_input('input/15test.txt')
+
+grid, commands = parse_input('input/15.txt')
+# print(f'Starting grid')
+# for row in grid:
+#     print(*row)
 process_commands(grid, commands)
-i = 1
-for row in grid:
-    print(*row)
+
+gps_total = 0
+for r_idx, r in enumerate(grid):
+    for c_idx, c in enumerate(r):
+        if c == 'O':
+            gps_total += (100 * r_idx) + c_idx
+print(f"Part 1: {gps_total}")
